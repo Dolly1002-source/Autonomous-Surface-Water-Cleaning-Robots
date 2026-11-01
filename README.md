@@ -5,49 +5,53 @@ A prototype unmanned surface vehicle (USV) designed to collect floating waste fr
 This project is described in the published paper:
 
 Autonomous Surface Water Cleaning Robots Reshika N and Dr. Vasudeva G International Journal of Scientific Research in Engineering and Management (IJSREM), Volume 08, Issue 05, May 2024 DOI: 10.55041/IJSREM32535
+
 Repository Status
-
 This repository documents the design of the project. The original source code and hardware prototype are not included.
-Problem
 
+Problem
 Urban lakes and ponds collect plastic, biomedical waste, and other debris. Manual cleaning is slow, labor-intensive, and exposes workers to infectious microorganisms. Boats and chemical treatments are costly and can harm the ecosystem. This project proposes an automated, low-cost, battery-powered alternative.
 
+
 System Overview
-Subsystem	Role
-Arduino Uno	Controls locomotion and obstacle avoidance
-Raspberry Pi 4 + Pi Camera	Image processing and waste classification
-GPS module	Navigation to specified locations
-Ultrasonic sensor (HC-SR04)	Detects obstacles and water-body boundaries
-Servo motor (SG90)	Rotates the sensor to scan left and right
-DC motors + propellers	Propulsion (47 mm propellers)
-Rechargeable batteries	Power source
+Subsystem	                               Role
+Arduino Uno	                             Controls locomotion and obstacle avoidance
+Raspberry Pi 4 + Pi Camera	             Image processing and waste classification
+GPS module	                              Navigation to specified locations
+Ultrasonic sensor (HC-SR04)	              Detects obstacles and water-body boundaries
+Servo motor (SG90)	                      Rotates the sensor to scan left and right
+DC motors + propellers	                 Propulsion (47 mm propellers)
+Rechargeable batteries	                 Power source
+
 Mechanical Design
 Two EPS foam pontoons provide buoyancy and stability.
 A salvage net between the pontoons collects debris, supported by an acrylic frame.
 Motors are embedded in each pontoon and connected to propellers through shafts designed to prevent water ingress.
 A sealed, watertight enclosure above the frame protects the electronics.
+
 Obstacle Avoidance Logic
+1.The Arduino uses an ultrasonic sensor mounted on a servo:
+2.Move forward and continuously measure distance.
+3.If an obstacle is detected within the set range, stop and scan right and left with the servo.
+4.Turn toward the side with more clearance. If both sides are equal, turn left.
+5.Pause briefly to realign after turning.
+6.If several consecutive obstacles are detected (flag count reaches 3), enter recovery mode and reverse for a set duration.
+7.If no obstacle is detected, resume moving forward.
 
-The Arduino uses an ultrasonic sensor mounted on a servo:
-
-Move forward and continuously measure distance.
-If an obstacle is detected within the set range, stop and scan right and left with the servo.
-Turn toward the side with more clearance. If both sides are equal, turn left.
-Pause briefly to realign after turning.
-If several consecutive obstacles are detected (flag count reaches 3), enter recovery mode and reverse for a set duration.
-If no obstacle is detected, resume moving forward.
 Waste Classification
 Tool: Google Teachable Machine (transfer learning on MobileNet)
 Classes: trash, plastic, paper, leaf
 Dataset: images from Kaggle plus extra photos taken with a laptop webcam
+
+
 Class	Images
 Trash	137
 Plastic	482
 Paper	594
 Leaf	311
+
 Deployment: the trained model was exported as model.tflite (TensorFlow Lite floating-point), copied to the Raspberry Pi 4 using VNC Viewer, and run on-device with the TensorFlow Lite runtime.
 Classified waste is stored in an onboard container for later disposal or recycling.
-
 The paper does not report quantitative accuracy results for the classifier.
 
 Advantages
@@ -55,14 +59,16 @@ Reduces manual labor and worker exposure to hazardous water
 Battery-powered, with no fossil fuels
 Low-cost components
 Designed to operate with minimal disturbance to aquatic life
+
 Future Scope
 Field testing in more challenging environments
 More robust obstacle avoidance and cleaning methodology
 Additional sensors and advanced algorithms for better detection and efficiency
 Water-quality monitoring (pH, turbidity, dissolved oxygen)
-Tech Stack
 
+Tech Stack
 Arduino Uno, Raspberry Pi 4, Python, TensorFlow Lite, Google Teachable Machine, HC-SR04, SG90, GPS module
+
 
 Citation
 Reshika N and Vasudeva G, "Autonomous Surface Water Cleaning Robots,"
