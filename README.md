@@ -14,7 +14,7 @@ This project is described in the published paper:
 
 ## Repository Status
 
-This repository documents the design of the project. The original source code and hardware prototype are **not included**. If reference code is added later, it will be clearly labeled as a re-implementation based on the paper, not the original prototype code.
+This repository documents the design of the project. The original source code and hardware prototype are **not included**. 
 
 ---
 
