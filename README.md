@@ -1,4 +1,5 @@
 # Autonomous-Surface-Water-Cleaning-Robots
+📄 **Paper:** [Autonomous Surface Water Cleaning Robots (IJSREM, 2024)](https://doi.org/10.55041/IJSREM32535)
 Autonomous surface water cleaning robot (IJSREM 2024 paper)
 A prototype unmanned surface vehicle (USV) designed to collect floating waste from lakes, ponds, and rivers. It combines ultrasonic obstacle avoidance (Arduino Uno) with camera-based waste classification (Raspberry Pi 4 and TensorFlow Lite).
 
